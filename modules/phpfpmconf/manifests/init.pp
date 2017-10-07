@@ -4,6 +4,7 @@ class phpfpmconf (
 	$path = '/vagrant/extensions/phpfpmconf',
 ) {
 	$version = $config[php]
+	$conf = file( '/vagrant/content/custom.conf' )
 
 	if $version =~ /^(\d+)\.(\d+)$/ {
 		$package_version = "${version}.*"
@@ -29,7 +30,7 @@ class phpfpmconf (
 	}
 
 	file_line { 'append_conf':
-		line    => 'security.limit_extensions = php.html .php .html',
+		line    => $conf,
 		path    => "/etc/${php_dir}/fpm/php-fpm.conf",
 		require => Package["${php_package}-fpm"],
 		notify  => Service["${php_package}-fpm"],
