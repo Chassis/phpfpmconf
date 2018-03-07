@@ -27,7 +27,8 @@ class phpfpmconf (
 
 		file { "/etc/${php_dir}/fpm/php-fpm.conf":
 			ensure  => 'present',
-			replace => false
+			replace => false,
+			require => Package["${php_package}-fpm"]
 		}
 
 		file_line { 'append_conf':
