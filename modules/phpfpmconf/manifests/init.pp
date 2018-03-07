@@ -31,7 +31,7 @@ class phpfpmconf (
 		}
 
 		file_line { 'append_conf':
-			line    => $conf,
+			line    => file('/vagrant/content/custom.conf'),
 			path    => "/etc/${php_dir}/fpm/php-fpm.conf",
 			require => Package["${php_package}-fpm"],
 			notify  => Service["${php_package}-fpm"],
